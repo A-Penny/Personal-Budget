@@ -49,25 +49,36 @@ entertainment.id = idCounter++;
 
 let envelopes = [housing, food, transportation, entertainment];
 
+
 // function to GET all envelopes
 const getAllEnvelopes =() => {
     return envelopes;
 }
 
+// function to GET an element by ID
+const getEnvelopeById = (id) => {
+    let envIndex = envelopes.findIndex(x => x.id === id)
+    if (envIndex !== -1) {
+        return envelopes[envIndex]
+    }
+}
+
 // function to update spent amount (or remove spent). Argument is the envelope to be updated
 const updateSpend = (env, amt) => {
     env.addSpend = amt;
-    return env.balance
+    return env.balance;
 }
 
+// function to create a new envelope
 const createNewEnvelope = (name, budg) => {
     let env = new Envelope (budg);
     env.name = name;
     env.id = idCounter++;
-
+    envelopes.push(env)
+    return env
 }
 
-const exportedObjects = {getAllEnvelopes}
+const exportedObjects = {getAllEnvelopes, updateSpend, createNewEnvelope, getEnvelopeById}
 
 module.exports = exportedObjects;
 
