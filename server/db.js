@@ -49,15 +49,19 @@ entertainment.id = idCounter++;
 
 let envelopes = [housing, food, transportation, entertainment];
 
-
 // function to GET all envelopes
 const getAllEnvelopes =() => {
     return envelopes;
 }
-
+const envelopeIndexFinder = (id) => {
+    let envIndex = envelopes.findIndex(x => x.id === id);
+    if (envIndex !== -1) {
+        return envIndex;
+    };
+}
 // function to GET an element by ID
 const getEnvelopeById = (id) => {
-    let envIndex = envelopes.findIndex(x => x.id === id)
+    let envIndex = envelopeIndexFinder(id);
     if (envIndex !== -1) {
         return envelopes[envIndex]
     }
@@ -78,7 +82,18 @@ const createNewEnvelope = (name, budg) => {
     return env
 }
 
-const exportedObjects = {getAllEnvelopes, updateSpend, createNewEnvelope, getEnvelopeById}
+// function to update the properties of an envelope object
+const updateEnvelopeById = (id, env) => {
+    let envIndex = envelopeIndexFinder(id);
+    if (envIndex !== -1) {
+        console.log(env)
+        env.id = id;
+        envelopes[envIndex] = env
+        return envelopes[envIndex];
+    }
+}
+
+const exportedObjects = {getAllEnvelopes, updateSpend, createNewEnvelope, getEnvelopeById, updateEnvelopeById}
 
 module.exports = exportedObjects;
 
